@@ -50,7 +50,7 @@ def mostrar_ingreso_nombre(ventana:pygame.Surface)->str:
                 if bandera_jugar == True:
                     if juego_completado:  # solo guardar si el juego fue completado
                         tiempo_total = pygame.time.get_ticks() - tiempo_inicial
-                        puntaje_final = calcular_puntaje(dificultad, errores, tiempo_total)
+                        puntaje_final = calcular_puntaje(dificultad, errores, tiempo_total, MULTIPLICADOR_PENA_SEGUN_DIFICULTAD)
                         guardar_puntaje(nombre_jugador, puntaje_final)
                     pygame.quit()
                     exit()
@@ -109,7 +109,7 @@ def mostrar_seleccion_dificultad(ventana:pygame.Surface)->int:
             if evento.type == pygame.QUIT:
                 if bandera_jugar == True:
                     tiempo_total = pygame.time.get_ticks() - tiempo_inicial  # calcula tiempo transcurrido (en milisegundos)
-                    puntaje_final = calcular_puntaje(dificultad, errores, tiempo_total)  # calcular puntaje 
+                    puntaje_final = calcular_puntaje(dificultad, errores, tiempo_total, MULTIPLICADOR_PENA_SEGUN_DIFICULTAD)  # calcular puntaje 
                     guardar_puntaje(nombre_jugador, puntaje_final)  # guardar el puntaje en el archivo JSON
                     pygame.quit()
                     exit()
@@ -209,7 +209,7 @@ def mostrar_mensaje_derrota(ventana:pygame.Surface, puntaje:int)->str:
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 tiempo_total = pygame.time.get_ticks() - tiempo_inicial  # Calcular tiempo transcurrido en milisegundos
-                puntaje_final = calcular_puntaje(dificultad, errores, tiempo_total)  # Calcular puntaje basado en dificultad, errores y tiempo
+                puntaje_final = calcular_puntaje(dificultad, errores, tiempo_total, MULTIPLICADOR_PENA_SEGUN_DIFICULTAD)  # Calcular puntaje basado en dificultad, errores y tiempo
                 guardar_puntaje(nombre_jugador, puntaje_final)  # Guardar el puntaje en el archivo JSON
                 pygame.quit()
                 exit()
@@ -287,7 +287,7 @@ def mostrar_mensaje_victoria(ventana:pygame.Surface, puntaje:int)->str:
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 tiempo_total = pygame.time.get_ticks() - tiempo_inicial  
-                puntaje_final = calcular_puntaje(dificultad, errores, tiempo_total)  
+                puntaje_final = calcular_puntaje(dificultad, errores, tiempo_total, MULTIPLICADOR_PENA_SEGUN_DIFICULTAD)  
                 guardar_puntaje(nombre_jugador, puntaje_final) 
                 pygame.quit()
                 exit()
@@ -358,7 +358,7 @@ def mostrar_puntajes(ventana: pygame.Surface)->None:
             if evento.type == pygame.QUIT:
                 if bandera_jugar == True:
                     tiempo_total = pygame.time.get_ticks() - tiempo_inicial  # Calcular tiempo transcurrido en milisegundos
-                    puntaje_final = calcular_puntaje(dificultad, errores, tiempo_total)  # Calcular puntaje basado en dificultad, errores y tiempo
+                    puntaje_final = calcular_puntaje(dificultad, errores, tiempo_total, MULTIPLICADOR_PENA_SEGUN_DIFICULTAD)  # Calcular puntaje basado en dificultad, errores y tiempo
                     guardar_puntaje(nombre_jugador, puntaje_final)  # Guardar el puntaje en el archivo JSON
                     print(f"Partida finalizada. Puntaje de {nombre_jugador}: {puntaje_final}")
                     pygame.quit()
@@ -517,7 +517,7 @@ while True:
                     if bandera_jugar == True:
                     # Calcular puntaje antes de salir
                         tiempo_total = pygame.time.get_ticks() - tiempo_inicial  # Calcular tiempo transcurrido en milisegundos
-                        puntaje_final = calcular_puntaje(dificultad, errores, tiempo_total)  # Usar la función calcular_puntaje
+                        puntaje_final = calcular_puntaje(dificultad, errores, tiempo_total, MULTIPLICADOR_PENA_SEGUN_DIFICULTAD)  # Usar la función calcular_puntaje
                         guardar_puntaje(nombre_jugador, puntaje_final)  # Guardar el puntaje
                         transicion_fundido(ventana, color=(0, 0, 0), duracion=500)
                         pygame.quit()
@@ -625,7 +625,7 @@ while True:
                 if evento.type == pygame.QUIT: 
                     if estado == JUEGO:  # verifica si estas en JUEGO
                         tiempo_total = pygame.time.get_ticks() - tiempo_inicial  # Calcular tiempo transcurrido en milisegundos
-                        puntaje_final = calcular_puntaje(dificultad, errores, tiempo_total)  # Usar la función calcular_puntaje
+                        puntaje_final = calcular_puntaje(dificultad, errores, tiempo_total, MULTIPLICADOR_PENA_SEGUN_DIFICULTAD)  # Usar la función calcular_puntaje
                         if juego_completado:  # guardar solo si el juego fue completado
                             guardar_puntaje(nombre_jugador, puntaje_final)
                     pygame.quit()
@@ -691,7 +691,7 @@ while True:
                                 errores += 1  
                                 if errores >= 3:  
                                     tiempo_total = pygame.time.get_ticks() - tiempo_inicial  
-                                    puntaje_final = calcular_puntaje(dificultad, errores, tiempo_total)  
+                                    puntaje_final = calcular_puntaje(dificultad, errores, tiempo_total, MULTIPLICADOR_PENA_SEGUN_DIFICULTAD)  
                                     guardar_puntaje(nombre_jugador, puntaje_final)  
                                     cambiar_musica(RUTA_MUSICA_DERROTA)
                                     resultado = mostrar_mensaje_derrota(ventana, puntaje_final)
@@ -714,7 +714,7 @@ while True:
 
             if completo == True and tablero_valido(sudoku) == True:  # Tablero completo y valido
                 tiempo_total = pygame.time.get_ticks() - tiempo_inicial
-                puntaje_final = calcular_puntaje(dificultad, errores, tiempo_total)
+                puntaje_final = calcular_puntaje(dificultad, errores, tiempo_total, MULTIPLICADOR_PENA_SEGUN_DIFICULTAD)
                 guardar_puntaje(nombre_jugador, puntaje_final)
                 juego_completado = True  # Marcar como completado
                 cambiar_musica(RUTA_MUSICA_VICTORIA)
@@ -724,34 +724,6 @@ while True:
                     estado = MENU
                     jugando = False
                 break
-            
-            # REVISAR (ME PARECE QUE ESTA AL PEDO PORQUE NO HAY FORMA DE Q EL TABLEO SE ARME MAL SI SE VA VALIDANDO SOLO...)
-            # LO COMENTE PORQUE ME TIRABA ERROR
-
-            # elif completo:
-            #     print("El tablero no cumple las reglas")
-            #     # Calcular el tiempo transcurrido
-            #     tiempo_final = pygame.time.get_ticks()
-            #     tiempo_transcurrido = (tiempo_final - tiempo_inicial) // 60000  # Convertir milisegundos a minutos
-                
-            #     # Obtener el multiplicador de dificultad
-            #     multiplicador_dificultad = DIFICULTADES[dificultad]  # Basado en la dificultad seleccionada
-
-            #     # Calcular el puntaje final
-            #     puntaje_final = calcular_puntaje(
-            #         PUNTOS_BASE,
-            #         errores,
-            #         PENALIZACION_ERROR,
-            #         tiempo_transcurrido,
-            #         PENALIZACION_TIEMPO,
-            #         multiplicador_dificultad
-            #     )
-            #     # Guardar el puntaje del jugador
-            #     guardar_puntaje(nombre_jugador, puntaje_final)
-            #     print(f"Juego completo! Puntaje de {nombre_jugador}: {puntaje_final}")
-
-                # Salir del bucle del juego
-                # jugando = False
             
             # Boton para reinciar tablero 
             pygame.draw.rect(ventana, color_boton_nuevo_tablero, rect_nuevo_tablero, border_radius=10)  # Fondo del botón

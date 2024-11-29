@@ -239,11 +239,11 @@ def generar_nuevo_sudoku(dificultad:int)->list:
 
     # Determinar la cantidad de celdas a ocultar según la dificultad
     if dificultad == 0:
-        celdas_a_ocultar = 17 
+        celdas_a_ocultar = 16
     elif dificultad == 1:
-        celdas_a_ocultar = 33 
+        celdas_a_ocultar = 32
     elif dificultad == 2:
-        celdas_a_ocultar = 48      
+        celdas_a_ocultar = 48   
     
     sudoku_con_celdas_ocultas = ocultar_celdas(sudoku, celdas_a_ocultar)
     
@@ -357,23 +357,26 @@ def leer_puntajes()->dict:
 
 
 # Función para calcular el puntaje final del jugador
-def calcular_puntaje(dificultad:float, errores:int, tiempo_ms:int)->float:
+def calcular_puntaje(dificultad_elegida:float, errores:int, tiempo_ms:int, incrementador_segun_dificultad:list, penalizacion_error:int=50, penalizacion_tiempo:int=10, puntos_base:int=1000)->float:
     """
     Calcula el puntaje basado en la dificultad, los errores y el tiempo transcurrido.
         Recibe: dificultad (float)
                 errores (int)
                 tiempo_ms (int)
+                lista de incrementador de dificultades segun la dificultad elegida (list)
+                penalizacion por error (parametro opcional) int
+                penalizacion por tiempo (parametro opcional) int
+                puntos bsae (parametro opcional) int
         Retorna: el puntaje (float)
     """
-    puntos_base = 1000
-    penalizacion_error = PENALIZACION_ERROR * DIFICULTADES[dificultad]  # Penalización ajustada por dificultad
-    penalizacion_tiempo = PENALIZACION_TIEMPO * DIFICULTADES[dificultad]  # Penalización ajustada por dificultad
+    penalizacion_error_total = penalizacion_error * incrementador_segun_dificultad[dificultad_elegida]  # Penalización ajustada por dificultad
+    penalizacion_tiempo_total = penalizacion_tiempo * incrementador_segun_dificultad[dificultad_elegida]  # Penalización ajustada por dificultad
 
     # Dividir el tiempo en periodos de 20 segundos (20,000 ms)
     periodos_20_seg = tiempo_ms // 20000  # Cantidad de periodos de 20 segundos
 
     # Penalización total
-    penalizacion_total = (errores * penalizacion_error) + (periodos_20_seg * penalizacion_tiempo)
+    penalizacion_total = (errores * penalizacion_error_total) + (periodos_20_seg * penalizacion_tiempo_total)
 
     # Aplicar penalizaciones al puntaje base
     puntaje = puntos_base - penalizacion_total

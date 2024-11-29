@@ -13,6 +13,7 @@ TAMAÑO_CELDA = 540 // 9
 PUNTO_DE_INICIO_TABLERO_SUDOKU_X = 55
 PUNTO_DE_INICIO_TABLERO_SUDOKU_Y = 55
 
+# Colores
 COLOR_GRIS = (130, 130, 130)
 COLOR_ROJO = (255, 0, 0)
 COLOR_VERDE = (34, 139, 34)
@@ -33,42 +34,38 @@ COLOR_NARANJA_OSCURO = (158, 71, 36)
 COLOR_AMARILLO_CLARO = (255, 239, 213)
 COLOR_AMARILLO_FUERTE = (255, 255, 120)
 
-PUNTOS_BASE = 1000  # Puntos base para calcular el puntaje
-DIFICULTADES = [1.0, 1.5, 2.0]  # Multiplicadores segun la dificultad: facil, intermedia, dificil
-PENALIZACION_ERROR = 50  # Puntos restados por cada error
-PENALIZACION_TIEMPO = 10  # Penalizacion por tiempo transcurrido
+# Puntajes
+MULTIPLICADOR_PENA_SEGUN_DIFICULTAD = [2.0, 1.5, 1.0]  # multiplicadores segun la dificultad: facil, intermedia, dificil
 
 # Archivo para guardar los puntajes
 ARCHIVO_PUNTAJES = "C:/Users/MATI/Desktop/Prog/FUNCIONES/Game/puntajes.json"
 
-RUTA_MUSICA_DERROTA = "Game/musica_derrota.mp3"
-RUTA_MUSICA_VICTORIA = "Game/musica_victoria.mp3"
-RUTA_MUSICA_SUDOKU = "Game/Music_Sudoku.mp3"
+# Rutas
+RUTA_MUSICA_DERROTA = "C:/Users/MATI/Desktop/Prog/FUNCIONES/Game/musica_derrota.mp3"
+RUTA_MUSICA_VICTORIA = "C:/Users/MATI/Desktop/Prog/FUNCIONES/Game/musica_victoria.mp3"
+RUTA_MUSICA_SUDOKU = "C:/Users/MATI/Desktop/Prog/FUNCIONES/Game/Music_Sudoku.mp3"
 
 ####################################################################################################################################
 #                   MULTIMEDIA
 ####################################################################################################################################
 
 
-
-
-
 pygame.mixer.init()
-pygame.mixer.music.load("C:/Users/MATI/Desktop/Prog/FUNCIONES/Game/Music_Sudoku.mp3")
-pygame.mixer.music.play(-1)  # Reproduce la música en bucle
 
-# Tiempo inicial para calcular duración de la partida
-tiempo_inicio = time.time()
+pygame.mixer.music.load(RUTA_MUSICA_SUDOKU)
+pygame.mixer.music.play(-1)  # Reproduce la musica en bucle
 
-# Cargar las imágenes de fondo del menú y puntajes
-imagen_menu = pygame.image.load("C:/Users/MATI/Desktop/Prog/FUNCIONES/Game/Imagen de WhatsApp 2024-11-22 a las 18.13.31_72800ea1.jpg")
+tiempo_inicio = time.time() # Tiempo inicial para calcular duracion de la partida
+
+# Cargar las imagenes de fondo del menu y puntajes
+imagen_menu = pygame.image.load("C:/Users/MATI/Desktop/Prog/FUNCIONES/Game/menu.jpg")
 imagen_menu = pygame.transform.scale(imagen_menu, (540, 600 - ALTO_BARRA_SUPERIOR))  # Escalar imagen al tamaño de la ventana
 
-imagen_puntajes = pygame.image.load("C:/Users/MATI/Desktop/Prog/FUNCIONES/Game/SUDOKU GAME puntaje.jpg")
+imagen_puntajes = pygame.image.load("C:/Users/Luca/Documents/Programacion_1/PRACTICAS/PROYECTO PYGAME PRINCIPAL/imagen_puntajes.jpg")
 imagen_puntajes = pygame.transform.scale(imagen_puntajes, (540, 600))
 
-imagen_nombres = pygame.image.load("C:/Users/MATI/Desktop/Prog/FUNCIONES/Game/Diseño sin título.jpg")
+imagen_nombres = pygame.image.load("C:/Users/MATI/Desktop/Prog/FUNCIONES/Game/SUDOKU GAME puntaje.jpg")
 imagen_nombres = pygame.transform.scale(imagen_nombres, (540, 600))
 
-imagen_fondo_sudoku = pygame.image.load("C:/Users/MATI/Desktop/Prog/FUNCIONES/Game/Diseño sin título.jpg")
+imagen_fondo_sudoku = pygame.image.load("C:/Users/MATI/Desktop/Prog/FUNCIONES/Game/Fondo_estrellado.jpg")
 imagen_fondo_sudoku = pygame.transform.scale(imagen_fondo_sudoku, (ANCHO_VENTANA, ALTO_VENTANA))
